@@ -1,26 +1,138 @@
-.user-input-container {
-  margin-top: 20px;
+/* Body full screen background styling */
+body {
+  background-color: #1a1a2e; /* Dark blue background */
+  color: #fff;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  margin: 0;
+  overflow: hidden; /* Prevent scrolling if unnecessary */
+}
+
+/* Main container styling */
+.container {
+  text-align: center;
   max-width: 500px;
-  margin: auto;
+  width: 100%; /* Full width for smaller screens */
+  background-color: #162447; /* Slightly lighter dark blue */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Center content vertically */
 }
 
-.user-input-container textarea {
-  width: 100%;
-  height: 100px;
-  font-size: 1rem;
+/* Title styling */
+h1 {
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 20px;
 }
 
-.user-input-container button {
+/* Textarea styling */
+textarea {
   width: 100%;
   padding: 10px;
-  background-color: #007acc;
-  color: white;
+  border-radius: 5px;
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  resize: none;
+  background-color: #1b1b2f; /* Dark input background */
+  color: #fff;
+  outline: none;
+  font-size: 16px;
+  margin-bottom: 20px;
 }
 
-.user-input-container button:hover {
-  background-color: #005fa3;
+/* Image Upload Styling */
+.image-upload {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
- 
+
+.image-upload input[type="file"] {
+  padding: 10px 0;
+  font-size: 14px;
+  color: #fff;
+  background-color: #3f72af;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.image-preview {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 10px;
+  margin-top: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  display: none; /* By default hidden */
+}
+
+.image-upload.has-image .image-preview {
+  display: block;
+}
+
+/* Submit button styling */
+button {
+  background-color: #3f72af;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+  text-align: center;
+}
+
+button:hover {
+  background-color: #112d4e;
+}
+
+/* Result styling */
+.result-section {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #1a1a2e;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.result-text {
+  font-size: 24px;
+  font-weight: bold;
+  color: #e94560;
+}
+
+.score-bar {
+  width: 100%;
+  background-color: #ccc;
+  border-radius: 5px;
+  margin: 10px 0;
+  overflow: hidden;
+  height: 10px;
+}
+
+.score-bar div {
+  height: 100%;
+  background-color: #4caf50;
+}
+
+.dynamic-message {
+  font-size: 14px;
+  color: #aaa;
+  text-align: center;
+}

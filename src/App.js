@@ -1,59 +1,73 @@
 import React, { useState } from "react";
-import UserInput from "./components/UserInput";
-import PreProcessing from "./components/PreProcessing";
-import MultilingualDetection from "./components/MultilingualDetection";
-import CredibilityScoring from "./components/CredibilityScoring";
-import ContentAnalysis from "./components/ContentAnalysis";
-import FactChecking from "./components/FactChecking";
-import AdversarialDetection from "./components/AdversarialDetection";
-import ScoringAndExplanation from "./components/ScoringAndExplanation";
-import OutputResults from "./components/OutputResults";
-
+import "./App.css";
 
 function App() {
-  const [submittedContent, setSubmittedContent] = useState("");
-  const [preProcessedContent, setPreProcessedContent] = useState("");
-  const [detectedContent, setDetectedContent] = useState({});
-  const [credibilityResult, setCredibilityResult] = useState({});
-  const [analysisResult, setAnalysisResult] = useState({});
-  const [factCheckResult, setFactCheckResult] = useState("");
-  const [adversarialDetectionResult, setAdversarialDetectionResult] = useState("");
-  const [finalScore, setFinalScore] = useState({ score: 0, explanation: "" });
-  const [feedbackData, setFeedbackData] = useState(null);
+  const [result, setResult] = useState("FAKE");
+  const [score, setScore] = useState(40);
+  const [message, setMessage] = useState("");
+  const [image, setImage] = useState(null);
 
-  const handleUserInputSubmit = (text) => setSubmittedContent(text);
-  const handlePreProcessed = (cleanedText) => setPreProcessedContent(cleanedText);
-  const handleMultilingualDetection = (result) => setDetectedContent(result);
-  const handleCredibilityCheck = (result) => setCredibilityResult(result);
-  const handleAnalysisComplete = (result) => setAnalysisResult(result);
-  const handleFactCheckComplete = (result) => setFactCheckResult(result);
-  const handleAdversarialDetectionComplete = (result) => setAdversarialDetectionResult(result);
-  const handleScoringComplete = (scoreData) => setFinalScore(scoreData);
-  const handleSubmitFeedback = (feedback) => {
-    setFeedbackData(feedback);
-    console.log("User Feedback:", feedback);
+  const messages = [
+    "This content appears suspicious. Be cautious!",
+    "Our algorithm suggests this might not be reliable.",
+    "Verification needed. Content might be misleading.",
+    "Content authenticity is questionable.",
+    "Potential misinformation detected."
+  ];
+
+  const generateMessage = () => {
+    const randomIndex = Math.floor(Math.random() * messages.length);
+    setMessage(messages[randomIndex]);
+  };
+
+  const handlePrediction = () => {
+    const newResult = result === "FAKE" ? "REAL" : "FAKE";
+    setResult(newResult);
+    setScore(Math.floor(Math.random() * 100));
+    generateMessage();
+  };
+
+  const scoreBarColor = result === "REAL" ? "#28a745" : "#e94560";
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setImage(URL.createObjectURL(file));
+    }
   };
 
   return (
-    <div className="App">
+    <div className="container">
       <h1>Fake News Detection System</h1>
-      <UserInput onSubmit={handleUserInputSubmit} />
-      {submittedContent && <PreProcessing text={submittedContent} onPreProcessed={handlePreProcessed} />}
-      {preProcessedContent && <MultilingualDetection text={preProcessedContent} onDetected={handleMultilingualDetection} />}
-      {detectedContent.content && <CredibilityScoring sourceUrl="https://trustednews.com/article123" onCredibilityCheck={handleCredibilityCheck} />}
-      {credibilityResult.score && <ContentAnalysis text={submittedContent} image={null} audio={null} onAnalysisComplete={handleAnalysisComplete} />}
-      {analysisResult.textAnalysis && <FactChecking text={submittedContent} onFactCheckComplete={handleFactCheckComplete} />}
-      {factCheckResult && <AdversarialDetection text={submittedContent} onAdversarialDetectionComplete={handleAdversarialDetectionComplete} />}
-      {adversarialDetectionResult && (
-        <ScoringAndExplanation
-          credibilityResult={credibilityResult}
-          analysisResult={analysisResult}
-          adversarialResult={adversarialDetectionResult}
-          onScoringComplete={handleScoringComplete}
-        />
-      )}
-      {finalScore.score > 0 && <OutputResults score={finalScore.score} explanation={finalScore.explanation} />}
-      
+
+      {/* Text Input */}
+      <textarea placeholder="Enter the content you want to verify..."></textarea>
+
+      {/* Image Upload */}
+      <div className={`image-upload ${image ? "has-image" : ""}`}>
+        <input type="file" accept="image/*" onChange={handleImageUpload} />
+        {image && <img src={image} alt="Uploaded Preview" className="image-preview" />}
+      </div>
+
+      {/* Submit Button */}
+      <button onClick={handlePrediction}>Submit for Verification</button>
+
+      {/* Result Section */}
+      <div className="result-section">
+        <div className="result-text" style={{ color: result === "REAL" ? "#28a745" : "#e94560" }}>
+          {result}
+        </div>
+        <div className="score-bar">
+          <div
+            style={{
+              width: `${score}%`,
+              backgroundColor: scoreBarColor
+            }}
+          ></div>
+        </div>
+        <p>Score: {score}/100</p>
+        <p className="dynamic-message">Explanation: {message}</p>
+      </div>
     </div>
   );
 }
