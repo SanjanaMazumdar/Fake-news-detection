@@ -1,0 +1,26 @@
+.user-input-container {
+  margin-top: 20px;
+  max-width: 500px;
+  margin: auto;
+}
+
+.user-input-container textarea {
+  width: 100%;
+  height: 100px;
+  font-size: 1rem;
+}
+
+.user-input-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007acc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.user-input-container button:hover {
+  background-color: #005fa3;
+}
+ 
