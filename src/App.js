@@ -8,7 +8,7 @@ import FactChecking from "./components/FactChecking";
 import AdversarialDetection from "./components/AdversarialDetection";
 import ScoringAndExplanation from "./components/ScoringAndExplanation";
 import OutputResults from "./components/OutputResults";
-import UserFeedback from "./components/UserFeedback"; // Assuming you need this import
+
 
 function App() {
   const [submittedContent, setSubmittedContent] = useState("");
@@ -53,7 +53,7 @@ function App() {
         />
       )}
       {finalScore.score > 0 && <OutputResults score={finalScore.score} explanation={finalScore.explanation} />}
-      {finalScore.score > 0 && <UserFeedback onSubmitFeedback={handleSubmitFeedback} />}
+      
     </div>
   );
 }
